@@ -1,26 +1,26 @@
 ### Only works on INTERNAL networks connecting to the internal FQDN of an Exchange CAS server.
 
-####################################################################################################################################
-###                                                                                                                              ###
-###  	Script by Terry Munro -                                                                                                  ###
-###     Technical Blog -               http://365admin.com.au                                                                    ###
-###     Webpage -                      https://www.linkedin.com/in/terry-munro/                                                  ###
-###     GitHub Scripts -               https://github.com/TeamTerry                                                              ###
-###                                                                                                                              ###
-###     https://github.com/TeamTerry/Office-365-Hybrid-Azure-and-Local-Active-Directory-PowerShell-Connection-Script             ### 
-###                                                                                                                              ###
-###     Version 1.1 - 16/05/2017                                                                                                 ###
-###     Revision -                                                                                                               ###
-###               v1.0  14/05/2017     Initial script                                                                            ###
-###               v1.1  18/05/2017     Added Support Guides URL and TechNet download link - Removed message from cred pop-up     ### 
-###               v1.2  30/05/2017     Added connection to Azure AD Connect (DirSync) Server                                     ###  	
-###                                                                                                                              ###
-###     Guideance on Remote Azure AD Sync - https://community.spiceworks.com/topic/724324-invoke-command-import-module           ###
-###                                                                                                                              ###
-###     Please ensure you read and understand the Notes for Usage below                                                          ###
-###                                                                                                                              ###
-###                                                                                                                              ###
-####################################################################################################################################
+############################################################################################################################################
+###                                                                                                                                      ###
+###  	Script by Terry Munro -                                                                                                          ###
+###     Technical Blog -               http://365admin.com.au                                                                            ###
+###     Webpage -                      https://www.linkedin.com/in/terry-munro/                                                          ###
+###     GitHub Scripts -               https://github.com/TeamTerry                                                                      ###
+###                                                                                                                                      ###
+###     Download link - https://github.com/TeamTerry/Office-365-Hybrid-Azure-and-Local-Active-Directory-PowerShell-Connection-Script     ### 
+###                                                                                                                                      ###
+###     Version 1.1 - 16/05/2017                                                                                                         ###
+###     Revision -                                                                                                                       ###
+###               v1.0  14/05/2017     Initial script                                                                                    ###
+###               v1.1  18/05/2017     Added Support Guides URL and TechNet download link - Removed message from cred pop-up             ### 
+###               v1.2  30/05/2017     Added connection to Azure AD Connect (DirSync) Server                                             ###  	
+###                                                                                                                                      ###
+###     Guideance on Remote Azure AD Sync - https://community.spiceworks.com/topic/724324-invoke-command-import-module                   ###
+###                                                                                                                                      ###
+###     Please ensure you read and understand the Notes for Usage below                                                                  ###
+###                                                                                                                                      ###
+###                                                                                                                                      ###
+############################################################################################################################################
 
 ####  Notes for Usage  ##############################################################################
 #                                                                                                   #
@@ -80,17 +80,17 @@ Import-PSSession $EXLSession -AllowClobber -Prefix EXL
 
 ###   Exchange Online
 $EXOSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://outlook.office365.com/powershell-liveid/ -Credential $CloudCred -Authentication Basic -AllowRedirection
-Import-PSSession $EXOSession –AllowClobber -Prefix EXO
+Import-PSSession $EXOSession â€“AllowClobber -Prefix EXO
 
 
 ### Exchange Online Protection
 $EOPSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri https://ps.protection.outlook.com/powershell-liveid/ -Credential $CloudCred -Authentication Basic -AllowRedirection
-Import-PSSession $EOPSession –AllowClobber -Prefix EOP
+Import-PSSession $EOPSession â€“AllowClobber -Prefix EOP
 
 
 ### Compliance Center
 $ccSession = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri "https://ps.compliance.protection.outlook.com/powershell-liveid/" -Credential $CloudCred -Authentication "Basic" -AllowRedirection
-Import-PSSession $ccSession –AllowClobber -Prefix CC
+Import-PSSession $ccSession â€“AllowClobber -Prefix CC
 
 
 ### Azure Active Directory Rights Management
@@ -115,7 +115,7 @@ Connect-SPOService -Url "https://$($Tenant)-admin.sharepoint.com" -Credential $C
 ### Skype Online
 Import-Module SkypeOnlineConnector
 $SkypeSession = New-CsOnlineSession -Credential $CloudCred
-Import-PSSession $SkypeSession –AllowClobber
+Import-PSSession $SkypeSession â€“AllowClobber
 
 
 ### Azure AD v2.0
@@ -123,6 +123,6 @@ Connect-AzureAD -Credential $CloudCred
 
 
 ### Azure AD Connect (DirSync)
-$ADConnectSession = New-PSSession -Computername $AzureADConnect -Credential $AzureADCred
-Invoke-Command -Session $ADConnectSession {Import-Module ADSync}
-Import-PSSession -Session $ADConnectSession -Module ADSync 
+$ADConnectSessionÂ =Â New-PSSessionÂ -ComputernameÂ $AzureADConnect -Credential $AzureADCred
+Invoke-CommandÂ -SessionÂ $ADConnectSessionÂ {Import-ModuleÂ ADSync}
+Import-PSSessionÂ -SessionÂ $ADConnectSessionÂ -ModuleÂ ADSyncÂ 
